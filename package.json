@@ -1,0 +1,22 @@
+{
+    "name": "new-discordjs-bot",
+    "version": "1.2.1",
+    "description": "Create a new discord bot with the \"discord-bot-boilerplate\" (https://github.com/JoaquinGiordano/discord-bot-boilerplate)",
+    "main": "index.js",
+    "bin": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Joaquin Giordano <joaquin_giordano@outlook.com>",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/JoaquinGiordano/new-discordjs-bot"
+    },
+    "dependencies": {
+        "chalk": "^5.0.1",
+        "inquirer": "^9.0.0",
+        "nanospinner": "^1.1.0"
+    }
+}
