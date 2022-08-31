@@ -7,16 +7,22 @@ import fs, { writeFileSync } from 'fs'
 
 console.log(chalk.cyan('\nCreate Discord Bot'))
 
-let { project_name, token } = await inquirer.prompt([
+let { project_name, token_prod, token_dev } = await inquirer.prompt([
     {
         name: 'project_name',
         type: 'input',
         message: "Project's name:",
     },
     {
-        name: 'token',
+        name: 'token_prod',
         type: 'input',
         message: "Bot's Token:",
+    },
+    {
+        name: 'token_dev',
+        type: 'input',
+        message:
+            "Bot's Dev Token (Leave it blank if you want to use the same as the production one):",
     },
 ])
 
@@ -33,13 +39,13 @@ await exec(
             'Repository Cloned (https://github.com/JoaquinGiordano/discord-bot-boilerplate)'
         )
 
-        spinner = createSpinner('Setting up configs file').start()
+        spinner = createSpinner('Setting up enviroment file').start()
 
         await fs.writeFile(
-            `./${project_name.toLowerCase().replaceAll(' ', '-')}/config.json`,
-            JSON.stringify({
-                token,
-            }),
+            `./${project_name.toLowerCase().replaceAll(' ', '-')}/.env`,
+            `TOKEN_PROD=${token_prod}\nTOKEN_DEV=${
+                token_dev ? token_dev : token_prod
+            }`,
             {},
             async () => {
                 let packageJson = JSON.parse(
@@ -61,7 +67,7 @@ await exec(
                         .replaceAll(' ', '-')}/package.json`,
                     JSON.stringify(packageJson)
                 )
-                spinner.success('Configs done')
+                spinner.success('Enviroment done')
                 spinner = createSpinner('Installing dependencies').start()
                 await exec(
                     `cd ${project_name
